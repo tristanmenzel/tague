@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+
+    "baseUrl": "",
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["es6", "dom"],
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "target": "es5",
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  },
+  "files": [
+    "build/index.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "build",
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true
+  }
+}

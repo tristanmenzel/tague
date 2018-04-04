@@ -1,0 +1,9 @@
+<ul>
+  <li class="tag-suggestion" [class.highlight]="index === highlightIndex" *ngFor="let item of suggestions,let index = index;">
+    <button type="button"
+            (mouseover)="highlightIndex = index"
+            (click)="itemSelected(item)">
+      {{item}}
+    </button>
+  </li>
+</ul>

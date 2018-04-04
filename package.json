@@ -1,0 +1,36 @@
+{
+  "name": "tague",
+  "version": "0.0.1",
+  "description": "An autocompleting tag selector component for angular",
+  "main": "src/index.ts",
+  "readme": "readme.md",
+  "scripts": {
+    "package": "ng-packagr -p ng-package.json",
+    "pack": "npm run package && npm pack ./dist",
+    "publish": "npm run package && npm publish ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/tristanmenzel/tague.git"
+  },
+  "keywords": [
+    "tag",
+    "autocomplete",
+    "angular"
+  ],
+  "author": "Tristan Menzel",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^5.0.0",
+    "@angular/core": "^5.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@angular/common": "^5.0.0",
+    "@angular/core": "^5.0.0",
+    "@angular/compiler": "^5.2.9",
+    "@angular/compiler-cli": "^5.2.9",
+    "ng-packagr": "^2.2.0",
+    "typescript": "^2.7.2"
+  }
+}
