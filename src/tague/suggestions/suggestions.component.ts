@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ItemType } from "../tague.component";
 
 @Component({
   selector: 'tag-suggestions',
@@ -10,9 +11,9 @@ export class SuggestionsComponent {
 
   private _highlightIndex: number = 0;
 
-  @Input() suggestions: string[];
+  @Input() suggestions: ItemType[];
 
-  @Output() selected: EventEmitter<string> = new EventEmitter<string>();
+  @Output() selected: EventEmitter<ItemType> = new EventEmitter<ItemType>();
 
   @Input() set highlightIndex(value: number) {
     const change = this._highlightIndex !== value;
@@ -21,6 +22,8 @@ export class SuggestionsComponent {
       this.highlightIndexChange.emit(this._highlightIndex);
     }
   }
+
+  @Input() getDisplayText: (item: ItemType) => string;
 
   get highlightIndex() {
     return this._highlightIndex;

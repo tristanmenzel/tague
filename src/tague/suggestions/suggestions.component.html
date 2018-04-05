@@ -3,7 +3,7 @@
     <button type="button"
             (mouseover)="highlightIndex = index"
             (click)="itemSelected(item)">
-      {{item}}
+      {{getDisplayText(item)}}
     </button>
   </li>
 </ul>

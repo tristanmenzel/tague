@@ -1,6 +1,6 @@
 <label class="tag-input" for="{{id}}">{{ label || 'Tag input'}}
 
-  <span class="tag-item" *ngFor="let item of selectedItems">{{item}} <button class="tag-item-remove"
+  <span class="tag-item" *ngFor="let item of selectedItems">{{getDisplayText(item)}} <button class="tag-item-remove"
                                                                              title="Remove"
                                                                              type="button"
                                                                              (click)="removeItem(item)">Remove</button></span>
@@ -8,6 +8,7 @@
   <input id="{{id}}" type="text" (keydown)="inputKeyDown($event)" (input)="inputInput($event)" [value]="queryText"
          (blur)="inputBlur()">
   <tag-suggestions [suggestions]="suggestions" (selected)="addItem($event)"
+                   [getDisplayText]="getDisplayText"
                    [(highlightIndex)]="highlightIndex"></tag-suggestions>
     </span>
 </label>
