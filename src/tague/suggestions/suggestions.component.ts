@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ItemType } from "../tague.component";
 
@@ -24,6 +24,11 @@ export class SuggestionsComponent {
   }
 
   @Input() getDisplayText: (item: ItemType) => string;
+
+
+  @Input()
+  @HostBinding('style.background-color')
+  backgroundColor: string = '#fff';
 
   get highlightIndex() {
     return this._highlightIndex;

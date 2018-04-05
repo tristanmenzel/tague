@@ -34,7 +34,7 @@ export class TagueComponent {
 
   public queryText: string = null;
 
-  @Input() id: string = 'tague-component';
+  @Input('inputId') id: string = 'tague-component';
 
   @Input() displayProp: string = null;
 
