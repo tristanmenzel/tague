@@ -41,7 +41,6 @@ export class SuggestionsComponent {
 
 
   itemSelected(item: string) {
-    console.log(item);
     this.selected.emit(item);
   }
 }

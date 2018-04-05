@@ -96,9 +96,7 @@ export class TagueComponent {
   constructor() {
     this.querySubject
       .asObservable()
-      .do(val => console.log(val))
       .switchMap(val => Observable.fromPromise(this.itemSourceAsAsync(val)))
-      .do(val => console.log(val))
       .subscribe(suggestions => {
         this.suggestions = suggestions;
         if (!(this.highlightIndex < suggestions.length)) {
