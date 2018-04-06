@@ -24,7 +24,8 @@ const KEYS = {
   DOWN: 40,
   ENTER: 13,
   TAB: 9,
-  BACKSPACE: 8
+  BACKSPACE: 8,
+  ESC: 27
 };
 
 @Component({
@@ -185,6 +186,11 @@ export class TagueComponent {
           event.preventDefault();
         }
         break;
+      case KEYS.ESC:
+        this.querySubject.next(null);
+        this.queryText = null;
+        event.preventDefault();
+        break;
     }
   }
 
@@ -211,7 +217,7 @@ export class TagueComponent {
   inputBlur() {
     setTimeout(() => {
       this.clear();
-    }, 500);
+    }, 200);
   }
 
 }
