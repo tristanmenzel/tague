@@ -2,7 +2,7 @@
 
 An auto-completing tagging control for angular 
 
-[Demo](https://stackblitz.com/edit/angular-ddonm7)
+[Demo](https://stackblitz.com/edit/angular-jgfknn)
 
 ## Usage
 
