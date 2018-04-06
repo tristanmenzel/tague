@@ -4,7 +4,7 @@ An auto-completing tagging control for angular
 
 [Demo](https://stackblitz.com/edit/angular-jgfknn)
 
-## Usage
+## Basic Usage
 
 **Install**
 ```
@@ -31,7 +31,7 @@ export class AppModule { }
 **Add to template**
 ```html
 
-<tag-tague [id]="'abc'" [itemSource]="itemSource" [(selectedItems)]="selected"></tag-tague>
+<tag-tague inputId="abc" [itemSource]="itemSource" [(selectedItems)]="selected"></tag-tague>
 
 ```
 
@@ -55,6 +55,44 @@ class MyComponent{
   itemSource = (queryText: string): Promise<string[]> => {
     return someService.get(queryText);  
   };
+}
+
+```
+
+
+## Object for item source
+
+**Template**
+```html
+
+<tag-tague inputId="abc" 
+           [itemSource]="itemSource" 
+           [(selectedItems)]="selected"
+           displayProp="name"
+           disabledProp="disabled"></tag-tague>
+
+```
+
+**ViewModel**
+```typescript
+
+class MyComponent{
+  // Objects are compared with shallow equality, or you can override using 
+  // the equalityComparer prop  (a:T,b:T) => boolean
+  selected: string[] = [{
+    name: 'One',
+    disabled: false
+    }]; 
+  
+  itemSource = [{
+    name: 'One',
+    disabled: false
+    }, {
+    name: 'Two',
+    disabled: true
+    }
+  ];
+
 }
 
 ```
