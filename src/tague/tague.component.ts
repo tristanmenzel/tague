@@ -1,5 +1,5 @@
-import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
@@ -7,8 +7,9 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Suggestion} from './suggestions/suggestions.component';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Suggestion } from './suggestions/suggestions.component';
+import { ItemType } from "../../dist/tague/tague.component";
 
 
 export declare type ItemSourceDelegate = (query: string) => string[];
@@ -85,7 +86,7 @@ export class TagueComponent {
 
 
   @Input() equalityComparer = (a: ItemType, b: ItemType): boolean => {
-    if (typeof a === 'string') {
+    if (typeof a === 'string' || typeof b === 'string') {
       return a === b;
     } else {
       return Object.keys(a)
