@@ -11,7 +11,7 @@
         <input id="{{id}}" type="text" (keydown)="inputKeyDown($event)" (input)="inputInput($event)" [value]="queryText"
                (blur)="inputBlur()">
         <tag-suggestions [suggestions]="suggestions" (selected)="addItem($event)"
-                         [getDisplayText]="getDisplayText"
+                         [noItemsMessage]="noItemsMessage"
                          [backgroundColor]="backgroundColor"
                          [(highlightIndex)]="highlightIndex"></tag-suggestions>
     </div>

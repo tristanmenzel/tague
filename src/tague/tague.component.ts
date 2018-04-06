@@ -1,12 +1,14 @@
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Component, EventEmitter, HostBinding, Input, OnInit, Output} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/switchMap';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/map';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Suggestion} from './suggestions/suggestions.component';
 
 
 export declare type ItemSourceDelegate = (query: string) => string[];
@@ -16,6 +18,14 @@ export declare type ItemSource = ItemSourceDelegate | AsyncItemSourceDelegate | 
 
 export declare type ItemType = string | { [key: string]: string };
 
+
+const KEYS = {
+  UP: 38,
+  DOWN: 40,
+  ENTER: 13,
+  TAB: 9,
+  BACKSPACE: 8
+};
 
 @Component({
   selector: 'tag-tague',
@@ -28,15 +38,17 @@ export class TagueComponent {
 
   public querySubject: BehaviorSubject<string> = new BehaviorSubject(null);
 
-  public suggestions: ItemType[];
+  public suggestions: Suggestion[] = null;
 
   public highlightIndex = 0;
 
   public queryText: string = null;
 
   @Input('inputId') id: string = 'tague-component';
+  @Input() noItemsMessage: string = 'No matches';
 
   @Input() displayProp: string = null;
+  @Input() disabledProp: string = 'disabled';
 
   @Input()
   @HostBinding('style.background-color')
@@ -50,13 +62,13 @@ export class TagueComponent {
     }
     if (value instanceof Array) {
       this.itemSourceAsAsync = (query: string) => {
-        return Promise.resolve(query === null ? [] : value
+        return Promise.resolve(query === null ? null : value
           .filter(x => this.getDisplayText(x).toUpperCase().startsWith(query.toUpperCase())));
       };
     } else {
       this.itemSourceAsAsync = (query: string) => {
         if (query === null) {
-          return Promise.resolve([]);
+          return Promise.resolve(null);
         }
         const res = value(query);
         return res instanceof Promise ? res : Promise.resolve(res);
@@ -93,20 +105,39 @@ export class TagueComponent {
     return null;
   };
 
+
+  getDisabledProp = (item: ItemType): boolean => {
+    if (typeof item === 'string') {
+      return false;
+    } else if (item.hasOwnProperty(this.disabledProp)) {
+      return !!item[this.disabledProp];
+    } else {
+      return false;
+    }
+  };
+
+
   constructor() {
     this.querySubject
       .asObservable()
       .switchMap(val => Observable.fromPromise(this.itemSourceAsAsync(val)))
+      .map(suggestions => suggestions && suggestions
+        .filter(sug => !this.selectedItems
+          .some(selected => this.equalityComparer(sug, selected))))
       .subscribe(suggestions => {
-        this.suggestions = suggestions;
-        if (!(this.highlightIndex < suggestions.length)) {
+        this.suggestions = suggestions && suggestions.map(s => ({
+          displayText: this.getDisplayText(s),
+          disabled: this.getDisabledProp(s),
+          item: s
+        }));
+        if (!suggestions || !(this.highlightIndex < suggestions.length)) {
           this.highlightIndex = 0;
         }
       });
   }
 
   itemSourceAsAsync(query: string): Promise<string[]> {
-    return Promise.resolve([]);
+    return Promise.resolve(null);
   }
 
   addItem(item: ItemType) {
@@ -127,19 +158,30 @@ export class TagueComponent {
 
   inputKeyDown(event: KeyboardEvent) {
     switch (event.which) {
-      case 38:
+      case KEYS.UP:
         // up
         this.highlightPrevious();
         event.preventDefault();
         break;
-      case 40:
+      case KEYS.DOWN:
         // down
         this.highlightNext();
         event.preventDefault();
         break;
-      case 9:
+      case KEYS.ENTER:
+      case KEYS.TAB:
+        // tab
         if (this.suggestions && this.suggestions.length) {
-          this.addItem(this.suggestions[this.highlightIndex]);
+          const sug = this.suggestions[this.highlightIndex];
+          if (!sug.disabled) {
+            this.addItem(sug.item);
+          }
+          event.preventDefault();
+        }
+        break;
+      case KEYS.BACKSPACE:
+        if (!this.querySubject.value && this.selectedItems && this.selectedItems.length) {
+          this.selectedItems = this.selectedItems.slice(0, this.selectedItems.length - 1);
           event.preventDefault();
         }
         break;

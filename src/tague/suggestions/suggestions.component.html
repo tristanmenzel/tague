@@ -1,9 +1,12 @@
 <ul>
-  <li class="tag-suggestion" [class.highlight]="index === highlightIndex" *ngFor="let item of suggestions,let index = index;">
+  <li class="empty-message"  *ngIf="suggestions?.length === 0"><span >{{ noItemsMessage }}</span></li>
+  <li class="tag-suggestion" [class.highlight]="index === highlightIndex"
+      *ngFor="let suggestion of suggestions,let index = index;">
     <button type="button"
+            [disabled]="suggestion.disabled"
             (mouseover)="highlightIndex = index"
-            (click)="itemSelected(item)">
-      {{getDisplayText(item)}}
+            (click)="itemSelected(suggestion.item)">
+      {{suggestion.displayText}}
     </button>
   </li>
 </ul>

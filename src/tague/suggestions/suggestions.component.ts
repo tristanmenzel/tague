@@ -2,6 +2,13 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@an
 import { Observable } from 'rxjs/Observable';
 import { ItemType } from "../tague.component";
 
+
+export interface Suggestion {
+  displayText: string;
+  disabled: boolean;
+  item: ItemType;
+}
+
 @Component({
   selector: 'tag-suggestions',
   templateUrl: './suggestions.component.html',
@@ -11,7 +18,8 @@ export class SuggestionsComponent {
 
   private _highlightIndex: number = 0;
 
-  @Input() suggestions: ItemType[];
+  @Input() suggestions: Suggestion[] = null;
+  @Input() noItemsMessage: string;
 
   @Output() selected: EventEmitter<ItemType> = new EventEmitter<ItemType>();
 
@@ -22,9 +30,6 @@ export class SuggestionsComponent {
       this.highlightIndexChange.emit(this._highlightIndex);
     }
   }
-
-  @Input() getDisplayText: (item: ItemType) => string;
-
 
   @Input()
   @HostBinding('style.background-color')
@@ -40,7 +45,7 @@ export class SuggestionsComponent {
   }
 
 
-  itemSelected(item: string) {
+  itemSelected(item: ItemType) {
     this.selected.emit(item);
   }
 }
