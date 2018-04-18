@@ -10,7 +10,7 @@
         <span class="tag-input-sizer">{{queryText}}</span>
         <input id="{{id}}" type="text" (keydown)="inputKeyDown($event)" (input)="inputInput($event)" [value]="queryText"
                (blur)="inputBlur()">
-        <tag-suggestions [suggestions]="suggestions" (selected)="addItem($event)"
+        <tag-suggestions [suggestions]="suggestions" (selected)="addItem($event)" *ngIf="suggestions"
                          [noItemsMessage]="noItemsMessage"
                          [backgroundColor]="backgroundColor"
                          [(highlightIndex)]="highlightIndex"></tag-suggestions>

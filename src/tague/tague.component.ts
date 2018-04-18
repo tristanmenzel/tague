@@ -9,7 +9,6 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Suggestion } from './suggestions/suggestions.component';
-import { ItemType } from "../../dist/tague/tague.component";
 
 
 export declare type ItemSourceDelegate = (query: string) => string[];
