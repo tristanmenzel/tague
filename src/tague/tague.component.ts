@@ -45,6 +45,8 @@ export class TagueComponent {
 
   public queryText: string = null;
 
+  public placeholder: string = null;
+
   @Input('inputId') id: string = 'tague-component';
   @Input() noItemsMessage: string = 'No matches';
 
