@@ -65,8 +65,9 @@ class MyComponent{
 **Template**
 ```html
 
-<tag-tague inputId="abc" 
-           [itemSource]="itemSource" 
+<tag-tague inputId="abc"
+           [itemSource]="itemSource"
+           [placeholder]="'placeholder goes here'"
            [(selectedItems)]="selected"
            displayProp="name"
            disabledProp="disabled"></tag-tague>
