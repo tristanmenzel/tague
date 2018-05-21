@@ -7,9 +7,9 @@
         </button>
     </div>
     <div class="tag-input-wrap">
-        <span class="tag-input-sizer">{{queryText}}</span>
+        <span class="tag-input-sizer">{{ queryText || dynamicPlaceholder }}</span>
         <input id="{{id}}" type="text" (keydown)="inputKeyDown($event)" (input)="inputInput($event)" [value]="queryText"
-               (blur)="inputBlur()" [placeholder]="placeholder">
+               (blur)="inputBlur()" [placeholder]="dynamicPlaceholder">
         <tag-suggestions [suggestions]="suggestions" (selected)="addItem($event)" *ngIf="suggestions"
                          [noItemsMessage]="noItemsMessage"
                          [backgroundColor]="backgroundColor"
