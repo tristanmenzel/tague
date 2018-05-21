@@ -45,6 +45,8 @@ export class TagueComponent {
 
   public queryText: string = null;
 
+  @Input() public placeholder: string = '';
+
   @Input('inputId') id: string = 'tague-component';
   @Input() noItemsMessage: string = 'No matches';
 
@@ -92,6 +94,10 @@ export class TagueComponent {
         .every(k => a[k] === b[k]);
     }
   };
+
+  get dynamicPlaceholder(){
+    return this.selectedItems.length ? '' : this.placeholder;
+  }
 
   get selectedItems(): ItemType[] {
     return this._selectedItems;
