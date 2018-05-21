@@ -2,7 +2,7 @@
   display: inline-block;
   border: solid 1px #999;
 
-  span, input, button, label{
+  span, input, button, label {
     box-sizing: border-box;
   }
 
@@ -13,7 +13,7 @@
     border: solid 1px #999;
     padding: 0 0 0 .25rem;
     border-radius: .25rem;
-    margin-right: .25rem;
+    margin: 0 .25rem .25rem 0;
     vertical-align: top;
 
     > .tag-item-remove {
@@ -39,21 +39,22 @@
   .tag-input {
     font-size: 0;
     width: 100%;
-    padding: .25rem;
+    padding: .25rem .25rem 0;
     display: inline-block;
     vertical-align: top;
   }
   .tag-input-wrap {
-    height: 100%;
+    height: 1.625rem;
     display: inline-block;
     font-size: 1rem;
     position: relative;
-    > .tag-input-sizer{
+    margin-bottom: .25rem;
+    > .tag-input-sizer {
       visibility: hidden;
-      padding: 0 3rem 0 0 ;
+      padding: 0 3rem 0 0;
       font-family: inherit;
       line-height: 1.5;
-      height: 1.5rem;
+      height: 1.625rem;
       white-space: nowrap;
     }
     > input {
@@ -65,13 +66,40 @@
       width: 100%;
       font-family: inherit;
       color: #000;
-      padding: 0 .25rem;
+      padding: 0.0625rem .25rem;
       background-color: transparent;
-      height: 1.5rem;
+      height: 1.625rem;
       font-size: 1rem;
       border: none;
       line-height: 1.5;
       outline: none !important;
     }
+  }
+
+  tag-suggestions {
+
+    &.hide {
+      animation-name: delayed-exit;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      overflow: hidden;
+      height: 0;
+    }
+  }
+}
+
+@keyframes delayed-exit {
+  0% {
+    opacity: 0;
+    height: auto;
+  }
+  99% {
+    opacity: 0;
+    height: auto;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+
   }
 }

@@ -10,7 +10,8 @@
         <span class="tag-input-sizer">{{ queryText || dynamicPlaceholder }}</span>
         <input id="{{id}}" type="text" (keydown)="inputKeyDown($event)" (input)="inputInput($event)" [value]="queryText"
                (blur)="inputBlur()" [placeholder]="dynamicPlaceholder">
-        <tag-suggestions [suggestions]="suggestions" (selected)="addItem($event)" *ngIf="suggestions"
+        <tag-suggestions [suggestions]="suggestions" (selected)="addItem($event)"
+                         [class.hide]="!showSuggestions"
                          [noItemsMessage]="noItemsMessage"
                          [backgroundColor]="backgroundColor"
                          [(highlightIndex)]="highlightIndex"></tag-suggestions>

@@ -45,6 +45,8 @@ export class TagueComponent {
 
   public queryText: string = null;
 
+  private showSuggestions: boolean = false;
+
   @Input() public placeholder: string = '';
 
   @Input('inputId') id: string = 'tague-component';
@@ -95,7 +97,7 @@ export class TagueComponent {
     }
   };
 
-  get dynamicPlaceholder(){
+  get dynamicPlaceholder() {
     return this.selectedItems.length ? '' : this.placeholder;
   }
 
@@ -127,6 +129,7 @@ export class TagueComponent {
   constructor() {
     this.querySubject
       .asObservable()
+      .do(val => this.showSuggestions = val !== null)
       .switchMap(val => Observable.fromPromise(this.itemSourceAsAsync(val)))
       .map(suggestions => suggestions && suggestions
         .filter(sug => !this.selectedItems
@@ -202,10 +205,12 @@ export class TagueComponent {
 
 
   highlightPrevious() {
+    if (!this.suggestions) return;
     this.highlightIndex = (this.highlightIndex + this.suggestions.length - 1) % this.suggestions.length;
   }
 
   highlightNext() {
+    if (!this.suggestions) return;
     this.highlightIndex = (this.highlightIndex + 1) % this.suggestions.length;
   }
 
@@ -221,9 +226,8 @@ export class TagueComponent {
   }
 
   inputBlur() {
-    setTimeout(() => {
-      this.clear();
-    }, 200);
+    this.showSuggestions = false;
+    this.queryText = null;
   }
 
 }
