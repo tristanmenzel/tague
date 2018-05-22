@@ -83,7 +83,6 @@
       animation-duration: 1s;
       animation-fill-mode: forwards;
       overflow: hidden;
-      height: 0;
     }
   }
 }
@@ -100,6 +99,5 @@
   100% {
     opacity: 0;
     height: 0;
-
   }
 }

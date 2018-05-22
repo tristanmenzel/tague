@@ -216,6 +216,7 @@ export class TagueComponent {
 
   inputInput(event: KeyboardEvent) {
     const query = (event.target as HTMLInputElement).value;
+    if (this.queryText === null && !query) return;
     this.queryText = query;
     this.querySubject.next(query);
   }
