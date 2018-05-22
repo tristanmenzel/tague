@@ -45,7 +45,7 @@ export class TagueComponent {
 
   public queryText: string = null;
 
-  private showSuggestions: boolean = false;
+  public showSuggestions: boolean = false;
 
   @Input() public placeholder: string = '';
 

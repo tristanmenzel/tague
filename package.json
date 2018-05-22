@@ -1,6 +1,6 @@
 {
   "name": "tague",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "An autocompleting tag selector component for angular",
   "main": "src/index.ts",
   "readme": "readme.md",
